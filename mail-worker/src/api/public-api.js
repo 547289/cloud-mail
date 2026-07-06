@@ -19,7 +19,7 @@ app.post('/public/addUser', async (c) => {
 });
 
 // ====== 适配注册控制器的接口 ======
-app.get('/mailbox/:email/messages', async (c) => {
+app.get('/public/mailbox/:email/messages', async (c) => {
 	// 验证 x-api-token
 	const token = c.req.header('x-api-token');
 	const storedToken = await c.env.kv.get(KvConst.PUBLIC_KEY);

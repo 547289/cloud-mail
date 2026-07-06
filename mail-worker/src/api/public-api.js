@@ -28,7 +28,7 @@ app.get('/public/mailbox/:email/messages', async (c) => {
 	}
 
 	const emailAddr = c.req.param('email');
-	const list = await publicService.emailList(c, { toEmail: emailAddr, type: 0, size: 5 });
+	const list = await publicService.emailList(c, { toEmail: emailAddr, size: 5 });
 
 	if (!list || list.length === 0) {
 		return c.json({ success: false, message: 'No emails found' });

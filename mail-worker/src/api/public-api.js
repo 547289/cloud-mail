@@ -19,6 +19,19 @@ app.post('/public/addUser', async (c) => {
 });
 
 // ====== 适配注册控制器的接口 ======
+
+// 获取当前配置的所有域名
+app.get('/public/domains', async (c) => {
+	const token = c.req.header('x-api-token');
+	const storedToken = await c.env.kv.get(KvConst.PUBLIC_KEY);
+	if (!token || token !== storedToken) {
+		return c.json({ success: false, message: 'Unauthorized' }, 401);
+	}
+	const domains = c.env.domain || [];
+	return c.json({ success: true, data: { domains } });
+});
+
+// 轮询邮件获取验证码
 app.get('/public/mailbox/:email/messages', async (c) => {
 	// 验证 x-api-token
 	const token = c.req.header('x-api-token');
